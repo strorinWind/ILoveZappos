@@ -1,17 +1,20 @@
 package com.strorin.zappos.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
 import com.strorin.zappos.R
 import com.strorin.zappos.network.TransactionDTO
 import com.github.mikephil.charting.data.LineData
+import com.strorin.zappos.ui.main.bids.BidRecyclerAdapter
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 
@@ -26,25 +29,24 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     @InjectPresenter
     lateinit var presenter: TransactionPresenter
 
-    private lateinit var viewModel: TransactionHistoryViewModel
 
     private lateinit var chart: LineChart
     private lateinit var progress: ProgressBar
+    private lateinit var bidsRecyclerView: RecyclerView
+    private lateinit var asksRecyclerView: RecyclerView
+    private lateinit var bidAdapter: BidRecyclerAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view =  inflater.inflate(R.layout.transaction_graph_fragment, container, false)
-        chart = view.findViewById(R.id.transaction_chart)
-        progress = view.findViewById(R.id.progress)
-        return  view
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProviders.of(this).get(TransactionHistoryViewModel::class.java)
-        // TODO: Use the ViewModel
+        findViews(view)
+        setupUi(inflater.context)
+
+        return  view
     }
 
     override fun setLoading() {
@@ -72,4 +74,24 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
         chart.invalidate()
     }
 
+    override fun setBidsAndAsks(bids: List<List<Float>>, asks: List<List<Float>>) {
+        bidAdapter.setDataset(bids)
+
+        presenter.scheduleUpdate()
+    }
+
+    private fun setupUi(context: Context){
+        val layoutManager = LinearLayoutManager(context)
+        bidsRecyclerView.layoutManager = layoutManager
+
+        bidAdapter = BidRecyclerAdapter(context)
+        bidsRecyclerView.adapter = bidAdapter
+    }
+
+    private fun findViews(view: View){
+        chart = view.findViewById(R.id.transaction_chart)
+        progress = view.findViewById(R.id.progress_graph)
+        bidsRecyclerView = view.findViewById(R.id.bids_rv)
+        asksRecyclerView = view.findViewById(R.id.asks_rv)
+    }
 }

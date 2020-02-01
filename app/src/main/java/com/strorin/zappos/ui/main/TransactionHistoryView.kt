@@ -11,4 +11,6 @@ interface TransactionHistoryView: MvpView {
     fun setLoading()
 
     fun showGraph(data: List<TransactionDTO>)
+
+    fun setBidsAndAsks(bids: List<List<Float>>, asks: List<List<Float>>)
 }

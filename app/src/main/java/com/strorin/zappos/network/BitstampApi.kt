@@ -10,4 +10,8 @@ interface BitstampApi {
 
     @GET("transactions/{currency_pair}/")
     fun transactionHistory(@Path("currency_pair") currencyPair: String): Single<Response<List<TransactionDTO>>>
+
+    @GET("order_book/{currency_pair}/")
+    fun orderBook(@Path("currency_pair") currencyPair: String): Single<Response<OrderBookDTO>>
+
 }

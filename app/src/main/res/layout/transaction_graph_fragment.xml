@@ -23,9 +23,27 @@
         android:minHeight="300dp"/>
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progress_graph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bids_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="1"
+            android:id="@+id/asks_rv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 </LinearLayout>
