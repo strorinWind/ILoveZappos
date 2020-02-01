@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.main
+package com.strorin.zappos.ui.main
 
 import androidx.lifecycle.ViewModel
 

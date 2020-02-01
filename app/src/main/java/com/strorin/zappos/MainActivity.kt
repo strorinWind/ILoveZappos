@@ -1,8 +1,8 @@
-package com.example.myapplication
+package com.strorin.zappos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.myapplication.ui.main.MainFragment
+import com.strorin.zappos.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
