@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+
+apply from: "../dependencies.gradle"
+
 
 android {
     compileSdkVersion 29
@@ -13,25 +15,56 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        disableEmptyStrategyCheck: 'false',
+                        enableEmptyStrategyHelper: 'true',
+                        defaultMoxyStrategy: 'moxy.viewstate.strategy.AddToEndSingleStrategy'
+                ]
+            }
+        }
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.appcompat:appcompat:$versions.appCompat"
+    implementation "androidx.core:core-ktx:$versions.coreAndroidx"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation "com.github.PhilJay:MPAndroidChart:$versions.MPAndroidChart"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+
+    implementation "com.github.moxy-community:moxy:$versions.moxy"
+    implementation "com.github.moxy-community:moxy-androidx:$versions.moxy"
+    kapt "com.github.moxy-community:moxy-compiler:$versions.moxy"
+//    annotationProcessor "com.github.moxy-community:moxy-compiler:$versions.moxy"
 }
