@@ -3,4 +3,7 @@
 
     <string name="str_chart_title">History of bitcoin to USD transactions</string>
     <string name="str_transactions_title">Transactions</string>
+
+    <string name="str_error_getting_transactions_history">Error during getting transaction history</string>
+    <string name="str_try_again_btn">Try again</string>
 </resources>

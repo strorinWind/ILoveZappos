@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +37,8 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     private lateinit var bidsRecyclerView: RecyclerView
     private lateinit var asksRecyclerView: RecyclerView
     private lateinit var bidAdapter: BidRecyclerAdapter
+    private lateinit var errorLayout: LinearLayout
+    private lateinit var tryAgainBtn: Button
 
 
     override fun onCreateView(
@@ -49,14 +53,26 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
         return  view
     }
 
+    override fun onStart() {
+        super.onStart()
+        tryAgainBtn.setOnClickListener { presenter.onTryAgainButtonClicked() }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        tryAgainBtn.setOnClickListener(null)
+    }
+
     override fun setLoading() {
         chart.visibility = View.GONE
         progress.visibility = View.VISIBLE
+        errorLayout.visibility = View.GONE
     }
 
     override fun showGraph(data: List<TransactionDTO>) {
         chart.visibility = View.VISIBLE
         progress.visibility = View.GONE
+        errorLayout.visibility = View.GONE
 
         val entries: MutableList<Entry> = mutableListOf<Entry>();
         for (entry: TransactionDTO in data) {
@@ -80,6 +96,12 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
         presenter.scheduleUpdate()
     }
 
+    override fun showErrorLoading() {
+        errorLayout.visibility = View.VISIBLE
+        progress.visibility = View.GONE
+        chart.visibility = View.GONE
+    }
+
     private fun setupUi(context: Context){
         val layoutManager = LinearLayoutManager(context)
         bidsRecyclerView.layoutManager = layoutManager
@@ -93,5 +115,7 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
         progress = view.findViewById(R.id.progress_graph)
         bidsRecyclerView = view.findViewById(R.id.bids_rv)
         asksRecyclerView = view.findViewById(R.id.asks_rv)
+        errorLayout = view.findViewById(R.id.error_layout)
+        tryAgainBtn = view.findViewById(R.id.try_again_btn)
     }
 }

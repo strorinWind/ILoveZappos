@@ -36,6 +36,10 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
         compositeDisposable.clear();
     }
 
+    fun onTryAgainButtonClicked(){
+        getHistory(viewState)
+    }
+
     private fun getHistory(view: TransactionHistoryView?){
         view?.setLoading()
         val disposable = ApiLoader
@@ -53,19 +57,22 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
             .orderBook(CURRENCY_PAIR)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::checkOrderBookResponse)
+            .subscribe(this::checkOrderBookResponse) { /* ignore*/}
         compositeDisposable.add(disposable)
     }
 
     private fun checkHistoryResponseAndShowState(response: Response<List<TransactionDTO>>){
         if (response.isSuccessful) {
             val body = response.body()
-            if (viewState != null && body != null) {
-                viewState.showGraph(body)
+            if (viewState != null) {
+                if (body != null) {
+                    viewState.showGraph(body)
+                } else {
+                    viewState.showErrorLoading()
+                }
             }
         } else {
-            //TODO
-            //showError
+            viewState.showErrorLoading()
         }
     }
 
@@ -75,9 +82,7 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
     }
 
     private fun handleErrorFromHistory(e: Throwable){
-        //TODO
-        //showError
-        Log.d("TESTTEST", e.localizedMessage)
+        viewState.showErrorLoading()
     }
 
     private fun checkOrderBookResponse(response: Response<OrderBookDTO>) {
