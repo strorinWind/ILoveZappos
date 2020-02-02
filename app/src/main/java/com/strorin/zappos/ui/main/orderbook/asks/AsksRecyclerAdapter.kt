@@ -1,10 +1,12 @@
-package com.strorin.zappos.ui.main.asks
+package com.strorin.zappos.ui.main.orderbook.asks
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.strorin.zappos.R
+import com.strorin.zappos.ui.main.orderbook.OrderBookEntityDiffCallback
 
 
 class AsksRecyclerAdapter(
@@ -28,9 +30,11 @@ class AsksRecyclerAdapter(
         holder.bind(askList[position])
     }
 
-    fun setDataset(asksList: List<List<Float>>) {
+    fun updateDataset(asksList: List<List<Float>>) {
+        val diffResult = DiffUtil
+            .calculateDiff(OrderBookEntityDiffCallback(askList, asksList))
         askList.clear()
         askList.addAll(asksList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -1,10 +1,13 @@
-package com.strorin.zappos.ui.main.bids
+package com.strorin.zappos.ui.main.orderbook.bids
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.strorin.zappos.R
+import androidx.recyclerview.widget.DiffUtil
+import com.strorin.zappos.ui.main.orderbook.OrderBookEntityDiffCallback
+
 
 class BidRecyclerAdapter(
     context: Context
@@ -27,9 +30,11 @@ class BidRecyclerAdapter(
         holder.bind(bidList[position])
     }
 
-    fun setDataset(bidsList: List<List<Float>>) {
+    fun updateDataset(bidsList: List<List<Float>>) {
+        val diffResult = DiffUtil
+            .calculateDiff(OrderBookEntityDiffCallback(bidList, bidsList))
         bidList.clear()
         bidList.addAll(bidsList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }

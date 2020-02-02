@@ -1,19 +1,19 @@
-package com.strorin.zappos.ui.main.bids
+package com.strorin.zappos.ui.main.orderbook.asks
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.strorin.zappos.R
 
-class BidsViewHolder(
+class AsksViewHolder(
     view: View
 ): RecyclerView.ViewHolder(view) {
 
     private val amount: TextView = view.findViewById(R.id.amount)
     private val price: TextView = view.findViewById(R.id.price)
 
-    fun bind(bidEntity: List<Float>) {
-        price.text = bidEntity[0].toString()
-        amount.text = bidEntity[1].toString()
+    fun bind(askEntity: List<Float>) {
+        price.text = askEntity[0].toString()
+        amount.text = askEntity[1].toString()
     }
 }
