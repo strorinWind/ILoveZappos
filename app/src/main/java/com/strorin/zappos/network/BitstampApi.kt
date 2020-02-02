@@ -14,4 +14,6 @@ interface BitstampApi {
     @GET("order_book/{currency_pair}/")
     fun orderBook(@Path("currency_pair") currencyPair: String): Single<Response<OrderBookDTO>>
 
+    @GET("ticker_hour/{currency_pair}/")
+    fun ticketHour(@Path("currency_pair") currencyPair: String): Single<Response<TicketHour>>
 }

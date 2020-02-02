@@ -13,4 +13,7 @@
     <string name="str_save_btn">Save</string>
 
     <string name="str_data_saved_notification">Price saved</string>
+
+    <string name="str_price_channel_name">Price notification</string>
+    <string name="str_price_channel_description">Notify when price became below than set target</string>
 </resources>

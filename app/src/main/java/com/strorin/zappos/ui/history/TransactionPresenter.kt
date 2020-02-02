@@ -27,8 +27,8 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
         getOrderBook()
     }
 
-    override fun detachView(view: TransactionHistoryView?) {
-        super.detachView(view)
+    override fun onDestroy() {
+        super.onDestroy()
         compositeDisposable.clear();
     }
 
