@@ -1,4 +1,4 @@
-package com.strorin.zappos.ui.main.orderbook.asks
+package com.strorin.zappos.ui.history.orderbook.asks
 
 import android.view.View
 import android.widget.TextView

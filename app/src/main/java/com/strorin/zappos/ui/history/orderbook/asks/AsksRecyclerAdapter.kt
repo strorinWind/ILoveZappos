@@ -1,4 +1,4 @@
-package com.strorin.zappos.ui.main.orderbook.asks
+package com.strorin.zappos.ui.history.orderbook.asks
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.strorin.zappos.R
-import com.strorin.zappos.ui.main.orderbook.OrderBookEntityDiffCallback
+import com.strorin.zappos.ui.history.orderbook.OrderBookEntityDiffCallback
 
 
 class AsksRecyclerAdapter(

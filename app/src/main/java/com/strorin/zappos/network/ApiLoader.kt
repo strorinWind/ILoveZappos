@@ -11,9 +11,15 @@ object ApiLoader {
 
     private val okHttpClient = OkHttpClient.Builder()
         .cache(null)
-        .build();
+        .build()
 
     private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build();
+
+    private val retrofitNoCache = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
@@ -21,4 +27,6 @@ object ApiLoader {
         .build();
 
     val bitstampApi = retrofit.create(BitstampApi::class.java);
+
+    val bitstampApiNoCache = retrofitNoCache.create(BitstampApi::class.java)
 }

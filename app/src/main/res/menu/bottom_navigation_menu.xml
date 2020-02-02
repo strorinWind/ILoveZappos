@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/graph"
+        android:title="graph"
+        android:icon="@drawable/ic_timeline_24dp"/>
+    <item android:title="settings"
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_24dp"/>
+</menu>

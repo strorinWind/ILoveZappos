@@ -1,4 +1,4 @@
-package com.strorin.zappos.ui.main.orderbook
+package com.strorin.zappos.ui.history.orderbook
 
 import androidx.recyclerview.widget.DiffUtil
 

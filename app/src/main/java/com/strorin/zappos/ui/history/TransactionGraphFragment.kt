@@ -1,4 +1,4 @@
-package com.strorin.zappos.ui.main
+package com.strorin.zappos.ui.history
 
 import android.content.Context
 import android.os.Bundle
@@ -16,8 +16,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.strorin.zappos.R
 import com.strorin.zappos.network.TransactionDTO
 import com.github.mikephil.charting.data.LineData
-import com.strorin.zappos.ui.main.orderbook.asks.AsksRecyclerAdapter
-import com.strorin.zappos.ui.main.orderbook.bids.BidRecyclerAdapter
+import com.strorin.zappos.ui.history.orderbook.asks.AsksRecyclerAdapter
+import com.strorin.zappos.ui.history.orderbook.bids.BidRecyclerAdapter
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 

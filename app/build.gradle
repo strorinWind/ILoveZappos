@@ -50,8 +50,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.coreAndroidx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
+    implementation "com.google.android.material:material:$versions.material"
 
     implementation 'com.android.support:multidex:1.0.3'
 
@@ -66,5 +65,4 @@ dependencies {
     implementation "com.github.moxy-community:moxy:$versions.moxy"
     implementation "com.github.moxy-community:moxy-androidx:$versions.moxy"
     kapt "com.github.moxy-community:moxy-compiler:$versions.moxy"
-//    annotationProcessor "com.github.moxy-community:moxy-compiler:$versions.moxy"
 }

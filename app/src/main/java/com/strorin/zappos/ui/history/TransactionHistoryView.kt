@@ -1,4 +1,4 @@
-package com.strorin.zappos.ui.main
+package com.strorin.zappos.ui.history
 
 import com.strorin.zappos.network.TransactionDTO
 import moxy.MvpView

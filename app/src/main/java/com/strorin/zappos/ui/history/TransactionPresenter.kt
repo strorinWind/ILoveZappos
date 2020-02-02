@@ -1,6 +1,5 @@
-package com.strorin.zappos.ui.main
+package com.strorin.zappos.ui.history
 
-import android.util.Log
 import com.strorin.zappos.network.ApiLoader
 import com.strorin.zappos.network.OrderBookDTO
 import com.strorin.zappos.network.TransactionDTO
@@ -10,8 +9,6 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import retrofit2.Response
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import java.util.concurrent.TimeUnit
 
 
 @InjectViewState
@@ -28,7 +25,6 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
         super.attachView(view)
         getHistory(view)
         getOrderBook()
-//        Schedulers.io().schedulePeriodicallyDirect({ getOrderBook()}, 0, 1000, TimeUnit.MILLISECONDS)
     }
 
     override fun detachView(view: TransactionHistoryView?) {
@@ -53,7 +49,7 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
 
     private fun getOrderBook() {
         val disposable = ApiLoader
-            .bitstampApi
+            .bitstampApiNoCache
             .orderBook(CURRENCY_PAIR)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -78,7 +74,6 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
 
     fun scheduleUpdate() {
         getOrderBook()
-//        Schedulers.io().scheduleDirect({getOrderBook()}, 500, TimeUnit.MILLISECONDS)
     }
 
     private fun handleErrorFromHistory(e: Throwable){
