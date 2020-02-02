@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.strorin.CustomApp">
+        android:name="com.strorin.zappos.BitstampApp">
         <activity android:name="com.strorin.zappos.ui.main.MainActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
