@@ -36,10 +36,12 @@
             android:minWidth="100dp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/standard_material_margin"
+            android:enabled="false"
             android:text="@string/str_save_btn" />
 
     </LinearLayout>
