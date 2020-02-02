@@ -14,18 +14,27 @@ import com.strorin.zappos.R
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import android.app.Activity
+import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import moxy.presenter.ProvidePresenter
 
 
-class SettingsFragment: MvpAppCompatFragment(), SettingsView {
+class SettingsFragment(
+    private val applicationContext: Context
+) : MvpAppCompatFragment(), SettingsView {
 
     companion object {
-        fun newInstance() = SettingsFragment()
+        fun newInstance(context: Context) = SettingsFragment(context.applicationContext)
     }
 
     @InjectPresenter
     lateinit var presenter: SettingsPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): SettingsPresenter {
+        return SettingsPresenter(applicationContext)
+    }
 
     private lateinit var priceEditText: EditText
     private lateinit var saveButton: Button
@@ -67,10 +76,7 @@ class SettingsFragment: MvpAppCompatFragment(), SettingsView {
     }
 
     private fun saveBtnClicked() {
-        val c= context
-        if (c != null){
-            presenter.onSaveButtonClicked(priceEditText.text.toString().toFloat(), c)
-        }
+        presenter.onSaveButtonClicked(priceEditText.text.toString().toFloat())
         hideSoftKeyboard()
     }
 

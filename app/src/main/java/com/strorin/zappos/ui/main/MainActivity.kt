@@ -44,7 +44,7 @@ class MainActivity : MvpAppCompatActivity(), MainScreenView {
 
     private fun showSettingsScreen() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, SettingsFragment.newInstance())
+            .replace(R.id.container, SettingsFragment.newInstance(this))
             .commitNow()
     }
 

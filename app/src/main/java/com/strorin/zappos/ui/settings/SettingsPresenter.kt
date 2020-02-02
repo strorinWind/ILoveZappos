@@ -6,9 +6,19 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 
 @InjectViewState
-class SettingsPresenter: MvpPresenter<SettingsView>() {
+class SettingsPresenter(
+    private val context: Context
+): MvpPresenter<SettingsView>() {
 
-    fun onSaveButtonClicked(price: Float, context: Context) {
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        val p = PersistentStorage.getTrackingPrice(context)
+        if (p != (-1).toFloat()) {
+            viewState.setPrice(p)
+        }
+    }
+
+    fun onSaveButtonClicked(price: Float) {
         PersistentStorage.savePriceToTrack(context, price)
         viewState.showSaved()
     }
