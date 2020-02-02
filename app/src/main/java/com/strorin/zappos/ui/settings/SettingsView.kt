@@ -8,4 +8,6 @@ import moxy.viewstate.strategy.StateStrategyType
 interface SettingsView: MvpView {
 
     fun setPrice(price: Float)
+
+    fun showSaved()
 }

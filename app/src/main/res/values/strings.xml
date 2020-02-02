@@ -11,4 +11,6 @@
     <string name="str_settings_track_price_subtext">We will notify you when price is below than:</string>
     <string name="str_price_hint">Price</string>
     <string name="str_save_btn">Save</string>
+
+    <string name="str_data_saved_notification">Price saved</string>
 </resources>
