@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.strorin.zappos.R
 import moxy.MvpAppCompatFragment
 
 class SettingsFragment: MvpAppCompatFragment() {
@@ -17,6 +18,6 @@ class SettingsFragment: MvpAppCompatFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.settings_fragment, container, false)
     }
 }

@@ -6,4 +6,9 @@
 
     <string name="str_error_getting_transactions_history">Error during getting transaction history</string>
     <string name="str_try_again_btn">Try again</string>
+
+    <string name="str_settings_track_price_title">Track price</string>
+    <string name="str_settings_track_price_subtext">We will notify you when price is below than:</string>
+    <string name="str_price_hint">Price</string>
+    <string name="str_save_btn">Save</string>
 </resources>
