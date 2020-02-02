@@ -89,7 +89,7 @@ class TransactionPresenter: MvpPresenter<TransactionHistoryView>() {
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {
-                viewState.setBidsAndAsks(body.bids, mutableListOf())
+                viewState.setBidsAndAsks(body.bids, body.asks)
             }
         }
     }

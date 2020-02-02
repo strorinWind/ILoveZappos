@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.strorin.zappos.R
 import com.strorin.zappos.network.TransactionDTO
 import com.github.mikephil.charting.data.LineData
+import com.strorin.zappos.ui.main.asks.AsksRecyclerAdapter
 import com.strorin.zappos.ui.main.bids.BidRecyclerAdapter
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -36,10 +37,11 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     private lateinit var progress: ProgressBar
     private lateinit var bidsRecyclerView: RecyclerView
     private lateinit var asksRecyclerView: RecyclerView
-    private lateinit var bidAdapter: BidRecyclerAdapter
     private lateinit var errorLayout: LinearLayout
     private lateinit var tryAgainBtn: Button
 
+    private lateinit var bidAdapter: BidRecyclerAdapter
+    private lateinit var asksAdapter: AsksRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,6 +94,7 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
 
     override fun setBidsAndAsks(bids: List<List<Float>>, asks: List<List<Float>>) {
         bidAdapter.setDataset(bids)
+        asksAdapter.setDataset(asks)
 
         presenter.scheduleUpdate()
     }
@@ -103,11 +106,13 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     }
 
     private fun setupUi(context: Context){
-        val layoutManager = LinearLayoutManager(context)
-        bidsRecyclerView.layoutManager = layoutManager
+        bidsRecyclerView.layoutManager = LinearLayoutManager(context)
+        asksRecyclerView.layoutManager = LinearLayoutManager(context)
 
         bidAdapter = BidRecyclerAdapter(context)
         bidsRecyclerView.adapter = bidAdapter
+        asksAdapter = AsksRecyclerAdapter(context)
+        asksRecyclerView.adapter = asksAdapter
     }
 
     private fun findViews(view: View){
