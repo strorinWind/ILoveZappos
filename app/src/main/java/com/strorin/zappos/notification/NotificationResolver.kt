@@ -32,7 +32,7 @@ class NotificationResolver(
 
     private fun getNotificationBuilder(price: Float): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_settings_24dp)
+            .setSmallIcon(R.drawable.ic_trending_down_24dp)
             .setContentTitle("Price decreased!!")
             .setContentText("Current price is $price")
             .setPriority(if (Build.VERSION.SDK_INT >= 26) NotificationManager.IMPORTANCE_HIGH else NotificationCompat.PRIORITY_HIGH)
