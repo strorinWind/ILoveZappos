@@ -27,6 +27,8 @@ class SettingsPresenter(
         val p = PersistentStorage.getTrackingPrice(context)
         if (p != (-1).toFloat()) {
             viewState.setPrice(p)
+        }
+        if (PersistentStorage.isNotificationEnabled(context)) {
             viewState.setEnabled(true)
         }
     }
@@ -39,7 +41,8 @@ class SettingsPresenter(
 
     fun onFeatureSwitched(enabled: Boolean) {
         viewState.setEnabled(enabled)
-        if (enabled) {
+        PersistentStorage.setNotificationEnabled(context, enabled)
+        if (enabled && PersistentStorage.getTrackingPrice(context) != (-1).toFloat()) {
             scheduleTracking()
         } else {
             JobDispatcher.initDispatcher(context)
