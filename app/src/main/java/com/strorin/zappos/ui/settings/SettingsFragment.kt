@@ -16,6 +16,7 @@ import moxy.presenter.InjectPresenter
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import moxy.presenter.ProvidePresenter
 
@@ -38,6 +39,7 @@ class SettingsFragment(
 
     private lateinit var priceEditText: EditText
     private lateinit var saveButton: Button
+    private lateinit var notificationSwitch: SwitchCompat
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,21 +47,26 @@ class SettingsFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.settings_fragment, container, false)
-        priceEditText = view.findViewById(R.id.price_input)
-        saveButton = view.findViewById(R.id.save_button)
+        findViews(view)
         return view
     }
 
     override fun onStart() {
         super.onStart()
         saveButton.setOnClickListener { saveBtnClicked() }
+        notificationSwitch.setOnCheckedChangeListener { _, p1 -> presenter.onFeatureSwitched(p1) }
         priceEditText.addTextChangedListener(priceTextListener)
         priceEditText.setOnKeyListener(priceTextKeysHandler)
     }
 
     override fun setPrice(price: Float) {
         priceEditText.setText(price.toString())
-        saveButton.isEnabled = true
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        notificationSwitch.isChecked = enabled
+        saveButton.isEnabled = enabled
+        priceEditText.isEnabled = enabled
     }
 
     override fun showSaved() {
@@ -83,6 +90,12 @@ class SettingsFragment(
     private fun hideSoftKeyboard() {
         (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
             .hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
+    }
+
+    private fun findViews(view: View){
+        priceEditText = view.findViewById(R.id.price_input)
+        saveButton = view.findViewById(R.id.save_button)
+        notificationSwitch = view.findViewById(R.id.notification_switch)
     }
 
     private val priceTextListener = object: TextWatcher {

@@ -20,11 +20,14 @@ class SettingsPresenter(
     private val context: Context
 ): MvpPresenter<SettingsView>() {
 
+    private val JOB_TAG = "price_btcusd_notification"
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         val p = PersistentStorage.getTrackingPrice(context)
         if (p != (-1).toFloat()) {
             viewState.setPrice(p)
+            viewState.setEnabled(true)
         }
     }
 
@@ -32,6 +35,16 @@ class SettingsPresenter(
         PersistentStorage.savePriceToTrack(context, price)
         viewState.showSaved()
         scheduleTracking()
+    }
+
+    fun onFeatureSwitched(enabled: Boolean) {
+        viewState.setEnabled(enabled)
+        if (enabled) {
+            scheduleTracking()
+        } else {
+            JobDispatcher.initDispatcher(context)
+            JobDispatcher.dispatcher.cancel(JOB_TAG)
+        }
     }
 
     private fun scheduleTracking() {
@@ -43,7 +56,7 @@ class SettingsPresenter(
         val job = JobDispatcher.dispatcher
             .newJobBuilder()
             .setService(MyJobService::class.java)
-                .setTag("my-unique-tag")
+                .setTag(JOB_TAG)
                 .setRecurring(true)
                 .setLifetime(Lifetime.FOREVER)
                 // start between 0 and 60 seconds from now

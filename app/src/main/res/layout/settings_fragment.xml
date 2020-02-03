@@ -8,14 +8,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/notification_switch"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/standard_material_margin"
-            android:text="@string/str_settings_track_price_title" />
+            android:text="@string/str_settings_track_price_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:digits="0123456789.,"
+            android:enabled="false"
             android:hint="@string/str_price_hint"
             android:importantForAutofill="no"
             android:inputType="number"

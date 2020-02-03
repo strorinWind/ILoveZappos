@@ -7,6 +7,8 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface SettingsView: MvpView {
 
+    fun setEnabled(enabled: Boolean)
+
     fun setPrice(price: Float)
 
     fun showSaved()
