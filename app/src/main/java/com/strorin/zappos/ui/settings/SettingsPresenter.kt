@@ -62,12 +62,9 @@ class SettingsPresenter(
                 .setTag(JOB_TAG)
                 .setRecurring(true)
                 .setLifetime(Lifetime.FOREVER)
-                // start between 0 and 60 seconds from now
                 .setTrigger(Trigger.executionWindow(periodicity, toleranceInterval))
                 .setReplaceCurrent(true)
-                // retry with exponential backoff
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                // constraints that need to be satisfied for the job to run
                 .setConstraints(
                     Constraint.ON_ANY_NETWORK
                 )
