@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.strorin.zappos.ui.history.TransactionGraphFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.MenuItem
+import androidx.fragment.app.FragmentTransaction
 import com.strorin.zappos.R
 import com.strorin.zappos.ui.settings.SettingsFragment
 import moxy.MvpAppCompatActivity
@@ -38,6 +39,7 @@ class MainActivity : MvpAppCompatActivity(), MainScreenView {
     private fun showHistoryGraph() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, TransactionGraphFragment.newInstance())
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commitNow()
     }
 
@@ -45,6 +47,7 @@ class MainActivity : MvpAppCompatActivity(), MainScreenView {
     private fun showSettingsScreen() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, SettingsFragment.newInstance(this))
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commitNow()
     }
 
