@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     private lateinit var asksRecyclerView: RecyclerView
     private lateinit var errorLayout: LinearLayout
     private lateinit var tryAgainBtn: Button
+    private lateinit var tableLayout: GridLayout
 
     private lateinit var bidAdapter: BidRecyclerAdapter
     private lateinit var asksAdapter: AsksRecyclerAdapter
@@ -93,6 +95,10 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
     }
 
     override fun setBidsAndAsks(bids: List<List<Float>>, asks: List<List<Float>>) {
+        if (tableLayout.visibility != View.VISIBLE) {
+            tableLayout.visibility = View.VISIBLE
+        }
+
         bidAdapter.updateDataset(bids)
         asksAdapter.updateDataset(asks)
 
@@ -122,5 +128,6 @@ class TransactionGraphFragment : MvpAppCompatFragment(), TransactionHistoryView 
         asksRecyclerView = view.findViewById(R.id.asks_rv)
         errorLayout = view.findViewById(R.id.error_layout)
         tryAgainBtn = view.findViewById(R.id.try_again_btn)
+        tableLayout = view.findViewById(R.id.table_layout)
     }
 }
