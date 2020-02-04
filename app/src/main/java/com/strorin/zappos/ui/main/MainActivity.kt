@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.MenuItem
 import androidx.fragment.app.FragmentTransaction
 import com.strorin.zappos.R
+import com.strorin.zappos.notification.NotificationResolver
 import com.strorin.zappos.ui.settings.SettingsFragment
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -24,6 +25,7 @@ class MainActivity : MvpAppCompatActivity(), MainScreenView {
         if (savedInstanceState == null) {
             showHistoryGraph()
         }
+        clearNotificationIfNeeded()
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener)
@@ -43,6 +45,12 @@ class MainActivity : MvpAppCompatActivity(), MainScreenView {
             .commitNow()
     }
 
+    private fun clearNotificationIfNeeded(){
+        val extras = intent.extras
+        if (extras?.getBoolean(NotificationResolver.FROM_NOTIFICATION) == true) {
+            NotificationResolver(this).clearNotification()
+        }
+    }
 
     private fun showSettingsScreen() {
         supportFragmentManager.beginTransaction()

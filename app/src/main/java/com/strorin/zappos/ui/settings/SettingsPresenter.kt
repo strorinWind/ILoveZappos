@@ -52,7 +52,7 @@ class SettingsPresenter(
 
     private fun scheduleTracking() {
         val periodicity =
-            TimeUnit.MINUTES.toSeconds(50).toInt() // Every 1 hour periodicity expressed as seconds
+            TimeUnit.MINUTES.toSeconds(50).toInt()
         val toleranceInterval = TimeUnit.MINUTES.toSeconds(70).toInt()
 
         JobDispatcher.initDispatcher(context)

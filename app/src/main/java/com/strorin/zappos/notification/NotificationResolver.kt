@@ -15,6 +15,11 @@ import com.strorin.zappos.ui.main.MainActivity
 class NotificationResolver(
     private val context: Context
 ) {
+
+    companion object {
+        val FROM_NOTIFICATION = "fromNotification"
+    }
+
     private val CHANNEL_ID = "price_notification"
     private val PRICE_ID = 1
 
@@ -25,8 +30,13 @@ class NotificationResolver(
 
         with(NotificationManagerCompat.from(context)) {
             cancel(PRICE_ID)
-            // notificationId is a unique int for each notification that you must define
             notify(1, builder.build())
+        }
+    }
+
+    fun clearNotification(){
+        with(NotificationManagerCompat.from(context)) {
+            cancel(PRICE_ID)
         }
     }
 
@@ -43,8 +53,9 @@ class NotificationResolver(
     private fun createPendingIntent() : PendingIntent {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(FROM_NOTIFICATION, true)
         }
-        return PendingIntent.getActivity(context, 0, intent, 0)
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun createNotificationChannel() {
